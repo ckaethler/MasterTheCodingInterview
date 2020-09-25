@@ -1,5 +1,5 @@
 # MasterTheCodingInterview
-MasterTheCodingInterview is an implementation of Algorithms and Data Structures
+MasterTheCodingInterview is an implementation of common Algorithms and Data Structures
 from the Udemy Course [Master the Coding Interview: Data Structures + Algorithms](https://www.udemy.com/course/master-the-coding-interview-data-structures-algorithms/)
 
 ## Installation
