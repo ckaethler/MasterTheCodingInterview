@@ -76,30 +76,48 @@ class BinarySearchTree {
                 if (!currentNode.left && !currentNode.right) {
                     if (parentNode.left === currentNode) parentNode.left = null;
                     else if (parentNode.right === currentNode) {
-                        parentNode.right=null;
+                        parentNode.right = null;
                     }
-                    return currentNode;
                 }
-                // Scenario 2: Node to delete has one child (left)
-                else if (currentNode.left && !currentNode.right) {
-                    parentNode.left = currentNode.left;
-                    return currentNode;
-                }
-                // Scenario 3: Node to delete has one child (right)
+                // Scenario 2: Node to delete has no left child (right)
                 else if (!currentNode.left && currentNode.right) {
                     parentNode.right = currentNode.right;
-                    return currentNode;
                 }
-                // Scenario 4: Node to delete has two children
-                else if (currentNode.left && currentNode.right) {
-                    
+                // Scenario 3: Node to delete has left child
+                else if (currentNode.left) {
+                    // console.log("working");
+                    const nodeToDelete = currentNode;                    
+                    console.log("parent ", parentNode)
+                    console.log("current", currentNode);
+                    // Left node has no right children
+                    if(!currentNode.left.right) {
+                        parentNode.left = currentNode.left;
+                        return currentNode;
+                    }
+
+                    // left node has right children
+                    else {
+                        parentNode = currentNode.left;
+                        currentNode = currentNode.left.right;
+
+                        while (currentNode.right) {
+                            parentNode = currentNode;
+                            currentNode = currentNode.right;
+                        }
+
+                        // handles if node to delete is root node
+                        if (nodeToDelete === this.root) {
+                            this.root.value = currentNode.value;
+                        } else {
+                            nodeToDelete.value = currentNode.value;
+                        }
+                        parentNode.right = null;
+                    }
                 }
+                return currentNode;
             }
-            // error handling if the node to delete doesn't exist
-            else if (!currentNode.left && !currentNode.right) {
-                return undefined;
-            } 
         }
+        return undefined;
     }
 }
 
@@ -120,10 +138,14 @@ newTree.insert(6);
 newTree.insert(15);
 newTree.insert(170);
 newTree.insert(171);
-traverse(newTree.root);
+newTree.insert(17);
+newTree.insert(10);
+
+// traverse(newTree.root);
 // console.log(newTree.lookup(15));
 // console.log(newTree.lookup(20));
 // console.log(newTree.lookup(21));
 // newTree.remove(15);
-console.log(newTree.remove(171));
+console.log(newTree.remove(9));
 traverse(newTree.root);
+console.log(newTree.root);
